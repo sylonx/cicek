@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Çiçek Buketi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="hearts hearts-left" aria-hidden="true"></div>
+  <div class="hearts hearts-right" aria-hidden="true"></div>
+
+  <main>
+    <h1>Çiçek Buketi 💐</h1>
+    <p class="sub">İstediğin çiçekleri yaz, buketini birlikte açalım.</p>
+
+    <form id="form" autocomplete="off">
+      <input id="input" type="text" placeholder="papatya, lale, gül" aria-label="Çiçek adları">
+      <button type="submit">Buket yap</button>
+    </form>
+
+    <div id="chips" class="chips" aria-label="Kullanılabilir çiçekler"></div>
+    <p id="msg" class="msg" aria-live="polite"></p>
+
+    <div class="stage">
+      <svg id="bouquet" viewBox="0 0 400 520" role="img" aria-label="Çiçek buketi"></svg>
+    </div>
+
+    <div class="actions">
+      <button id="replay" class="ghost" type="button">↻ Tekrar oynat</button>
+      <button id="random" class="ghost" type="button">🎲 Rastgele buket</button>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

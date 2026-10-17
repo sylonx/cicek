@@ -1,0 +1,182 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  color: #4a3550;
+  background:
+    radial-gradient(circle at 15% 20%, #ffe3ef 0, transparent 40%),
+    radial-gradient(circle at 85% 15%, #e6e0ff 0, transparent 40%),
+    radial-gradient(circle at 50% 100%, #dff5e3 0, transparent 50%),
+    #fff8fb;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 28px 16px 40px;
+  text-align: center;
+}
+
+/* ---- Yanlarda süzülen kalpler ---- */
+.hearts {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 150px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.hearts-left  { left: 0; }
+.hearts-right { right: 0; }
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  left: var(--x);
+  font-size: var(--s);
+  opacity: 0;
+  animation: heartUp var(--t) linear var(--dl) infinite;
+  filter: drop-shadow(0 2px 4px rgba(255, 90, 140, .25));
+}
+@keyframes heartUp {
+  0%   { transform: translate(0, 0) rotate(calc(var(--rot) * -1)) scale(.6); opacity: 0; }
+  12%  { opacity: .85; }
+  50%  { transform: translate(var(--sw), -55vh) rotate(var(--rot)) scale(1); }
+  88%  { opacity: .7; }
+  100% { transform: translate(0, -115vh) rotate(calc(var(--rot) * -1)) scale(.9); opacity: 0; }
+}
+
+@media (max-width: 640px) {
+  .hearts { width: 70px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hearts { display: none; }
+}
+
+h1 { margin: 0 0 4px; font-size: 2rem; }
+.sub { margin: 0 0 20px; opacity: .75; }
+
+form {
+  display: flex;
+  gap: 8px;
+  background: #fff;
+  padding: 8px;
+  border-radius: 999px;
+  box-shadow: 0 8px 28px rgba(190, 120, 160, .22);
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 1.05rem;
+  padding: 10px 16px;
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 20px;
+  color: #fff;
+  background: linear-gradient(135deg, #ff7aa8, #c77dff);
+  transition: transform .15s, box-shadow .15s;
+}
+button:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(199, 125, 255, .4); }
+button:active { transform: translateY(0); }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 6px;
+}
+.chips button {
+  background: #fff;
+  color: #6b4a73;
+  padding: 6px 14px;
+  font-size: .92rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+}
+
+.msg { min-height: 1.5em; margin: 8px 0 0; font-size: .95rem; }
+
+.stage { margin-top: 4px; }
+#bouquet { width: 100%; max-width: 440px; height: auto; overflow: visible; }
+
+.actions { display: flex; justify-content: center; gap: 10px; margin-top: 8px; }
+button.ghost {
+  background: #fff;
+  color: #6b4a73;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+}
+
+/* ---- SVG animasyonları ---- */
+.stem {
+  fill: none;
+  stroke: #3f9142;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: grow 1.1s ease-out var(--d) forwards;
+}
+@keyframes grow { to { stroke-dashoffset: 0; } }
+
+.leaf {
+  fill: #4caf50;
+  stroke: #2e7d32;
+  stroke-width: .8;
+  transform-origin: 0 0;
+  transform: scale(0);
+  animation: pop .6s cubic-bezier(.3, 1.4, .5, 1) var(--d) forwards;
+}
+
+.petal {
+  transform-origin: 0 0;
+  transform: rotate(var(--r)) scale(0);
+  opacity: 0;
+  animation: petal .8s cubic-bezier(.25, 1.2, .4, 1) both;
+  animation-delay: calc(var(--base) + var(--d));
+}
+@keyframes petal {
+  from { transform: rotate(var(--r)) scale(0); opacity: 0; }
+  50%  { opacity: 1; }
+  to   { transform: rotate(var(--r)) scale(1); opacity: 1; }
+}
+
+.core {
+  transform-origin: 0 0;
+  animation: pop .5s cubic-bezier(.3, 1.6, .5, 1) both;
+  animation-delay: calc(var(--base) + .45s);
+}
+@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+.sway {
+  transform-origin: 200px 405px;
+  animation: sway 4s ease-in-out var(--sd) infinite alternate;
+}
+@keyframes sway {
+  from { transform: rotate(-1.1deg); }
+  to   { transform: rotate(1.1deg); }
+}
+
+.wrap { animation: rise .8s ease-out both; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sway { animation: none; }
+}
